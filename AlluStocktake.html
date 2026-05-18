@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allu Components</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4f4f2;
+    --surface: #ffffff;
+    --border: #dddbd7;
+    --accent: #e8500a;
+    --accent-light: #fff3ee;
+    --charcoal: #0a0a0a;
+    --text: #2a2a28;
+    --text-muted: #888784;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* Top header bar */
+  .site-header {
+    background: var(--charcoal);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  .site-header img {
+    height: 52px;
+    width: auto;
+  }
+
+  .site-header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .page-header {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    padding: 0 20px;
+    border-left: 5px solid var(--accent);
+    padding-left: 20px;
+  }
+
+  .page-header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+  }
+
+  .page-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .form-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .meta-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-size: 0.72rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 9px 12px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    background: #fff;
+  }
+
+  .section-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--charcoal);
+    border-bottom: 1px solid var(--border);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .section-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0;
+    padding: 0;
+  }
+
+  .item-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+    user-select: none;
+  }
+
+  .item-checkbox-row:hover {
+    background: #fafaf8;
+  }
+
+  .item-checkbox-row.checked {
+    background: var(--accent-light);
+    border-color: #e8c4bf;
+  }
+
+  .item-checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .item-checkbox-row span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    display: block;
+  }
+
+  .item-checkbox-row .item-name {
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.3;
+    display: block;
+    font-weight: 600;
+  }
+
+  /* Selected items quantity section */
+  .qty-section {
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 2px solid var(--accent);
+    background: var(--accent-light);
+  }
+
+  .qty-section.visible {
+    display: flex;
+  }
+
+  .qty-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideIn 0.2s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .qty-label {
+    flex: 1;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 120px;
+  }
+
+  .qty-unit {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 50px;
+  }
+
+  .qty-input {
+    width: 90px !important;
+    text-align: center;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .search-bar {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: #fafaf9;
+  }
+
+  .search-bar input {
+    background: #fff;
+    font-size: 0.875rem;
+    padding: 8px 12px;
+  }
+
+  .no-results {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: none;
+  }
+
+  .summary-bar {
+    position: sticky;
+    bottom: 20px;
+    background: var(--charcoal);
+    color: #fff;
+    border-radius: 8px;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    transition: opacity 0.2s;
+  }
+
+  .summary-bar .count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  .summary-bar .count span {
+    font-weight: 700;
+    color: #ffb085;
+    font-size: 1.1rem;
+    opacity: 1;
+  }
+
+  .submit-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 26px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .submit-btn:hover { background: #c94008; }
+  .submit-btn:active { transform: scale(0.98); }
+
+  /* Transaction toggle */
+  .tx-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tx-toggle-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .tx-options { display: flex; gap: 10px; }
+
+  .tx-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .tx-btn:hover { border-color: #aaa; color: var(--text); }
+
+  .tx-btn.active-deduct {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .tx-btn.active-receive {
+    border-color: #27ae60;
+    background: #edfaf3;
+    color: #27ae60;
+  }
+
+  /* Receive mode colour overrides */
+  body.receive-mode {
+    --accent: #27ae60;
+    --accent-light: #edfaf3;
+  }
+
+  body.receive-mode .submit-btn { background: #27ae60; }
+  body.receive-mode .submit-btn:hover { background: #219a52; }
+  body.receive-mode .page-header { border-left-color: #27ae60; }
+  body.receive-mode .section-title { background: #1e7a45; }
+  body.receive-mode .section-title .dot { background: #a8f0c6; }
+  body.receive-mode .qty-section { border-top-color: #27ae60; }
+  body.receive-mode .qty-section-title { color: #27ae60; }
+  body.receive-mode .item-checkbox-row input[type="checkbox"] { accent-color: #27ae60; }
+  body.receive-mode .summary-bar .count span { color: #80ffb0; }
+
+  .notes-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .notes-section label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* Success overlay */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .success-overlay.show { display: flex; }
+
+  .success-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    max-width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .success-box .tick {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+
+  .success-box h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .success-box p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .success-box button {
+    font-family: 'Barlow Condensed', sans-serif;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 520px) {
+    .meta-section { grid-template-columns: 1fr; }
+    .items-grid { grid-template-columns: 1fr 1fr; }
+    .qty-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <img src = "Images/dgsa-logo.png" class = "logo" width = "640" height = "360">
+  <span class="site-header-title">Stock Management</span>
+</div>
+
+<div class="page-header">
+  <h1>Parts & Materials Log</h1>
+  <p>Tick each item, then enter the quantity used or received.</p>
+</div>
+
+<div class="form-container">
+
+  <!-- Meta info -->
+  <div class="meta-section">
+    <div class="field-group">
+      <label for="tech-name">Name</label>
+      <input type="text" id="tech-name" placeholder="e.g. John Smith">
+    </div>
+    <div class="field-group">
+      <label for="job-date">Date</label>
+      <input type="date" id="job-date">
+    </div>
+    <div class="field-group">
+      <label for="job-ref">Job #</label>
+      <input type="text" id="job-ref" placeholder="e.g. Q123">
+    </div>
+    <div class="field-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" placeholder="e.g. Yard">
+    </div>
+  </div>
+
+  <!-- Transaction type -->
+  <div class="tx-toggle">
+    <div class="tx-toggle-label">Transaction Type</div>
+    <div class="tx-options">
+      <button class="tx-btn active-deduct" id="btn-deduct" onclick="setMode('deduct')">
+        ↓ &nbsp;Deduct — items used / taken to job
+      </button>
+      <button class="tx-btn" id="btn-receive" onclick="setMode('receive')">
+        ↑ &nbsp;Receive — new stock coming in
+      </button>
+    </div>
+  </div>
+
+  <!-- Category: Lubricants -->
+  <div class="section-card" id="cat-lubricants">
+    <div class="section-title"><span class="dot"></span> Allu Components</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search lubricants…" oninput="filterItems(this, 'cat-lubricants')">
+    </div>
+    <div class="items-grid">
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="PMX Seal BONF 2" data-unit="Litres" data-cat="lubricants"><div><span class="item-name">PMX Seal BONF 2</span><span>ID: 27017610</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="Engine Oil 15W-40" data-unit="Litres" data-cat="lubricants"><div><span class="item-name">PMX Seal BONF 1</span><span>ID: 27017609</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="Hydraulic Oil ISO 46" data-unit="Litres" data-cat="lubricants"><div><span class="item-name">PMX Drive Cover</span><span>ID: H03(27026983)</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="Gear Oil 80W-90" data-unit="Litres" data-cat="lubricants"><div><span class="item-name">PMX Seal Frame Flange</span><span>ID: 27017611</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="Grease (General)" data-unit="Grams" data-cat="lubricants"><div><span class="item-name">Mechanical Face Seal</span><span>ID: 8000209</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="Grease (High Temp)" data-unit="Grams" data-cat="lubricants"><div><span class="item-name">PMX Speed Sensor</span><span>ID: 8000224</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">RPM Sensor Adaptor</span><span>ID: —</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="Coolant (Green)" data-unit="Litres" data-cat="lubricants"><div><span class="item-name">PMX Nut</span><span>ID: 8000034</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">PMX Flow Divider</span><span>ID: 8000063</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Washer NL16</span><span>ID: 8000009</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Hex Bolt 16x70</span><span>ID: 8000005</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Hex Bolt 16x50</span><span>ID: 8000041</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">SC</span><span>ID: 8000399</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">SC M</span><span>ID: 8000252</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Hex Countersunk M8</span><span>ID: 80000265</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Usit Seal 1/4"</span><span>ID: 8002653</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Set Screw 16x20</span><span>ID: 8000052</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Temp Sensor Adaptor</span><span>ID: 27045514</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Temp Sensor</span><span>ID: 8000253</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">PMX HD 300/500 Ex Cable</span><span>ID: 27032297</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">ALLU EX2-01</span><span>ID: —</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">PMX Arm planetary</span><span>ID: 682500590</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">PMX Arm Hyd motor</span><span>ID: 3789015</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">PMX Plug</span><span>ID: 8000022</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">M8 Cap screw and washer</span><span>ID: —</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Drum plug</span><span>ID: —</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Drum Cover roll pins</span><span>ID: —</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">PMX Washer NL 20</span><span>ID: 8000058</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Grease line adaptor fitting</span><span>ID: GE-06LR1-8ED</span></div></label>
+      <label class="item-checkbox-row"><input type="checkbox" onchange="toggleItem(this)" data-name="WD-40" data-unit="ml" data-cat="lubricants"><div><span class="item-name">Case Drain for PMX Arms</span><span>ID: —</span></div></label>
+    </div>
+    <div class="no-results">No items match your search.</div>
+    <div class="qty-section" id="qty-lubricants">
+      <div class="qty-section-title">&#10003; Enter quantities used</div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes-section">
+    <label for="notes">Additional Notes</label>
+    <textarea id="notes" placeholder="Any observations, issues found, or follow-up actions required…"></textarea>
+  </div>
+
+  <!-- Submit bar -->
+  <div class="summary-bar">
+    <div class="count">Items selected: <span id="item-count">0</span></div>
+    <button class="submit-btn" onclick="submitForm()">Submit Log</button>
+  </div>
+
+</div>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-box">
+    <div class="tick">✅</div>
+    <h2>Log Submitted</h2>
+    <p>The maintenance record has been saved. A copy can be exported to Excel.</p>
+    <button onclick="resetForm()">New Entry</button>
+  </div>
+</div>
+
+<script>
+  // Set today's date as default
+  document.getElementById('job-date').valueAsDate = new Date();
+
+  let currentMode = 'deduct';
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.body.classList.toggle('receive-mode', mode === 'receive');
+    document.getElementById('btn-deduct').className = 'tx-btn' + (mode === 'deduct' ? ' active-deduct' : '');
+    document.getElementById('btn-receive').className = 'tx-btn' + (mode === 'receive' ? ' active-receive' : '');
+    document.querySelectorAll('.qty-section-title').forEach(el => {
+      el.textContent = mode === 'deduct' ? '✓ Enter quantities used' : '✓ Enter quantities received';
+    });
+  }
+
+  function toggleItem(checkbox) {
+    const row = checkbox.closest('.item-checkbox-row');
+    const cat = checkbox.dataset.cat;
+    const name = checkbox.dataset.name;
+    const unit = checkbox.dataset.unit;
+    const qtySection = document.getElementById('qty-' + cat);
+
+    if (checkbox.checked) {
+      row.classList.add('checked');
+      // Add qty row
+      const div = document.createElement('div');
+      div.className = 'qty-row';
+      div.id = 'qty-row-' + name.replace(/\s+/g, '-');
+      div.innerHTML = `
+        <span class="qty-label">${name}</span>
+        <span class="qty-unit">${unit}</span>
+        <input type="number" class="qty-input" min="0" step="any" placeholder="0"
+          data-item="${name}" data-unit="${unit}" value="">
+      `;
+      qtySection.appendChild(div);
+      qtySection.classList.add('visible');
+    } else {
+      row.classList.remove('checked');
+      // Remove qty row
+      const existing = document.getElementById('qty-row-' + name.replace(/\s+/g, '-'));
+      if (existing) existing.remove();
+      // Hide section if empty
+      const remaining = qtySection.querySelectorAll('.qty-row');
+      if (remaining.length === 0) qtySection.classList.remove('visible');
+    }
+
+    updateCount();
+  }
+
+  function updateCount() {
+    const count = document.querySelectorAll('.item-checkbox-row input:checked').length;
+    document.getElementById('item-count').textContent = count;
+  }
+
+  function filterItems(input, catId) {
+    const q = input.value.toLowerCase();
+    const card = document.getElementById(catId);
+    const rows = card.querySelectorAll('.item-checkbox-row');
+    let visible = 0;
+    rows.forEach(row => {
+      const name = (row.querySelector('.item-name') || row.querySelector('span'))?.textContent.toLowerCase() || '';
+      const id = row.querySelectorAll('span')[1]?.textContent.toLowerCase() || '';
+      const show = name.includes(q) || id.includes(q);
+      row.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    const noRes = card.querySelector('.no-results');
+    noRes.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function submitForm() {
+    const techName = document.getElementById('tech-name').value.trim();
+    const jobDate  = document.getElementById('job-date').value;
+    if (!techName || !jobDate) {
+      alert('Please fill in your name and the date before submitting.');
+      return;
+    }
+
+    // Collect all data
+    const items = [];
+    document.querySelectorAll('.qty-row input[type="number"]').forEach(inp => {
+      items.push({
+        item: inp.dataset.item,
+        unit: inp.dataset.unit,
+        qty: inp.value || 0
+      });
+    });
+
+    // Log to console (replace with your Power Automate webhook URL here)
+    console.log('SUBMISSION:', {
+      type: currentMode,
+      tech: techName,
+      date: jobDate,
+      ref: document.getElementById('job-ref').value,
+      location: document.getElementById('location').value,
+      items,
+      notes: document.getElementById('notes').value
+    });
+
+    document.getElementById('success-overlay').classList.add('show');
+  }
+
+  function resetForm() {
+    document.getElementById('success-overlay').classList.remove('show');
+    // Uncheck all
+    document.querySelectorAll('.item-checkbox-row input:checked').forEach(cb => {
+      cb.checked = false;
+      cb.closest('.item-checkbox-row').classList.remove('checked');
+    });
+    // Clear qty sections
+    document.querySelectorAll('.qty-section').forEach(sec => {
+      sec.querySelectorAll('.qty-row').forEach(r => r.remove());
+      sec.classList.remove('visible');
+    });
+    document.getElementById('tech-name').value = '';
+    document.getElementById('job-ref').value = '';
+    document.getElementById('location').value = '';
+    document.getElementById('notes').value = '';
+    document.getElementById('job-date').valueAsDate = new Date();
+    setMode('deduct');
+    updateCount();
+  }
+</script>
+</body>
+</html>
